@@ -11,7 +11,7 @@ Features:
 
 Usage:
 
-   sudo sh setup_tor_ssh.sh
+`sudo sh setup_tor_ssh.sh`
 
 Note:
  - It's recommended using a seperate tor-ssh user for your tor connection.
