@@ -28,7 +28,7 @@ cp -n sshd_config "/etc/ssh_tor/"
 
 # Note: I'm not sure if you are supposed generating keys like this,
 # but it's the common way referred
-! [ -f "/etc/ssh_tor/ssh_host_ed25519_key" ] || ssh-keygen -N "" -t ed25519 -f /etc/ssh_tor/ssh_host_ed25519_key
+[ -f "/etc/ssh_tor/ssh_host_ed25519_key" ] || ssh-keygen -N "" -t ed25519 -f /etc/ssh_tor/ssh_host_ed25519_key
 
 systemctl daemon-reload
 systemctl restart tor
