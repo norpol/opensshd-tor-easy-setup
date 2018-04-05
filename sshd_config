@@ -9,30 +9,10 @@ Protocol 2
 HostKey /etc/ssh_tor/ssh_host_ed25519_key
 #AllowUsers <your tor user>
 
-#Privilege Separation is turned on for security
-UsePrivilegeSeparation yes
-
-# Lifetime and size of ephemeral version 1 server key
-KeyRegenerationInterval 3600
-ServerKeyBits 1024
-
-# Logging
-SyslogFacility AUTH
-LogLevel INFO
-
 # Authentication:
 LoginGraceTime 120
 PermitRootLogin prohibit-password
-StrictModes yes
-
 PubkeyAuthentication yes
-
-# To enable empty passwords, change to yes (NOT RECOMMENDED)
-PermitEmptyPasswords no
-
-# Change to yes to enable challenge-response passwords (beware issues with
-# some PAM modules and threads)
-ChallengeResponseAuthentication no
 
 X11Forwarding no
 PrintMotd no
@@ -52,5 +32,3 @@ AcceptEnv LANG LC_*
 # PAM authentication, then enable this but set PasswordAuthentication
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
-
-DebianBanner no
