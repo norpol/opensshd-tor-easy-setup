@@ -1,7 +1,7 @@
 #!/bin/sh
 # setup a hidden (aka onion) service and point it to SSH
 # can be run multiple times, doesn't override files or configs when run multiple times
-[ -f "/bin/systemd" ] || { echo "no systemd detected"; exit 1; }
+pidof systemd >/dev/null || { echo "no systemd detected"; exit 1; }
 
 create() {
   content="${1}"
