@@ -4,6 +4,9 @@
 # Note: It's recommended using a seperate user.
 set -ue
 
+SCRIPT_NAME="${0}"
+SCRIPT_DIR="${SCRIPT_NAME%/*}"
+
 _check_deps() {
    grep -qs '^systemd$' /proc/1/comm || { echo "no systemd detected"; exit 1; }
    tor -h >/dev/null || { echo "no tor detected"; exit 1; }
@@ -71,6 +74,7 @@ _purge() {
 }
 
 _main() {
+   cd "${SCRIPT_DIR}"
    case "${1:-}" in
       install) _install
          ;;
