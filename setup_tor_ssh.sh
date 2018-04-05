@@ -2,6 +2,7 @@
 # setup a hidden (aka onion) service and point it to SSH
 # can be run multiple times, doesn't override files or configs when run multiple times
 # Note: It's recommended using a seperate user.
+set -ue
 grep '^systemd$' /proc/1/comm || { echo "no systemd detected"; exit 1; }
 tor -h >/dev/null || { echo "no tor detected"; exit 1; }
 sshd --help 2>&1 | grep -qs OpenSSH || { echo "No OpenSSH detected"; exit 1; }
