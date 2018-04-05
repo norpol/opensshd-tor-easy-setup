@@ -11,7 +11,11 @@ Features:
 
 Usage:
 
-`sudo sh setup_tor_ssh.sh`
+```
+git clone https://github.com/norpol/opensshd-tor-easy-setup
+cd opensshd-tor-easy-setup
+sudo sh setup_tor_ssh.sh
+```
 
 Note:
  - It's recommended using a seperate tor-ssh user for your tor connection.
