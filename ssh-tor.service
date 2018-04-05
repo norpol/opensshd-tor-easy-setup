@@ -1,15 +1,11 @@
-#/etc/systemd/system/ssh-tor.service
-[Unit]
-Description=OpenBSD Secure Shell server
-After=network.target
-
 [Service]
-ExecStart=/usr/sbin/sshd -f /etc/ssh_tor/sshd_config -D
+ExecStart=/usr/bin/sshd -D -f /etc/ssh_tor/sshd_config
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
-Restart=on-failure
-RestartPreventExitStatus=255
-Type=notify
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
+
+# This service file runs an SSH daemon that forks for each incoming connection.
+# If you prefer to spawn on-demand daemons, use sshd.socket and sshd@.service.
