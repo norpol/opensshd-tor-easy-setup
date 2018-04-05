@@ -11,7 +11,7 @@ create() {
     echo "${file}"
     printf '%s' "${content}" | tee -a "${file}"
   else
-    echo "${content} in "${file}" exists"
+    echo "${content} in ${file} exists"
   fi
 }
 
