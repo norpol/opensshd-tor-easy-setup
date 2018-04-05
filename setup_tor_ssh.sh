@@ -18,6 +18,10 @@ create() {
     echo "${content} in ${file} exists"
   fi
 }
+log_cmd() {
+   echo "$ ${*}"
+   eval "${*}"
+}
 
 create "HiddenServiceDir /var/lib/tor/ssh_hidden_service/" /etc/tor/torrc
 create "HiddenServicePort 22 127.0.1.7:22" /etc/tor/torrc
@@ -32,9 +36,9 @@ cp -n sshd_config "/etc/ssh_tor/"
 # but it's the common way referred
 [ -f "/etc/ssh_tor/ssh_host_ed25519_key" ] || ssh-keygen -N "" -t ed25519 -f /etc/ssh_tor/ssh_host_ed25519_key
 
-systemctl daemon-reload
-systemctl restart tor
-systemctl restart ssh-tor
-systemctl enable ssh-tor
+log_cmd systemctl daemon-reload
+log_cmd systemctl restart tor
+log_cmd systemctl restart ssh-tor
+log_cmd systemctl enable ssh-tor
 ssh-keyscan 127.0.1.7 -p 22
 echo "Success; Now you can proceed with https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/ssh"
