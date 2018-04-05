@@ -70,7 +70,6 @@ _purge() {
    rm -rfv "/var/lib/tor/ssh_hidden_service"
 }
 
-
 _main() {
    case "${1:-}" in
       install) _install
