@@ -1,22 +1,21 @@
 #/etc/tor_ssh/sshd_config
-# mostly taken from Debian /etc/ssh/sshd_config
-
-# What ports, IPs and protocols we listen for
 Port 22
-
 ListenAddress 127.0.1.7
-Protocol 2
 HostKey /etc/ssh_tor/ssh_host_ed25519_key
-#AllowUsers <your tor user>
-
-# Authentication:
-LoginGraceTime 120
-PermitRootLogin prohibit-password
-
+PasswordAuthentication no
+AuthenticationMethods publickey
 X11Forwarding no
-PrintMotd no
-PrintLastLog yes
 TCPKeepAlive yes
+LogLevel VERBOSE
 
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
+
+# optional recommendation:
+# AllowTcpForwarding no
+# ClientAliveInterval 300
+# ClientAliveCountMax 0
+
+# Reduce allowed access to explicit user list
+#AllowUsers <your tor user>
+#AllowGroups ssh-tor
