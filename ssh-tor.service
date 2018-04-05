@@ -1,10 +1,10 @@
 #/etc/systemd/system/ssh-tor.service
 [Unit]
 Description=OpenBSD Secure Shell server
-After=network.target auditd.service
+After=network.target
 
 [Service]
-ExecStart=/usr/sbin/sshd -f /etc/ssh_tor/sshd_config -D $SSHD_OPTS
+ExecStart=/usr/sbin/sshd -f /etc/ssh_tor/sshd_config -D
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure

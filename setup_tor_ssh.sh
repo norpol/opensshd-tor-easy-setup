@@ -1,6 +1,7 @@
 #!/bin/sh
 # setup a hidden (aka onion) service and point it to SSH
 # can be run multiple times, doesn't override files or configs when run multiple times
+# Note: It's recommended using a seperate user.
 grep '^systemd$' /proc/1/comm || { echo "no systemd detected"; exit 1; }
 tor -h >/dev/null || { echo "no tor detected"; exit 1; }
 sshd --help 2>&1 | grep -qs OpenSSH || { echo "No OpenSSH detected"; exit 1; }
@@ -35,4 +36,4 @@ systemctl restart tor
 systemctl restart ssh-tor
 systemctl enable ssh-tor
 ssh-keyscan 127.0.1.7 -p 22
-echo "Success"
+echo "Success; Now you can proceed with https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/ssh"
