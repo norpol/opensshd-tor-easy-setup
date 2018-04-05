@@ -8,6 +8,7 @@ Features:
  - [x] Shows you public key fingerprint
  - [x] Script can be run multiple times, without overriding/changing existing files
  - [ ] Secure ssh config # FIXME, config needs review
+ - [ ] Configure localhost address, port and onion config via. shell variables
 
 Usage:
 
