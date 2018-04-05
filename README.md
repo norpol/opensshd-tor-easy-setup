@@ -1,4 +1,4 @@
-# Opensshd-tor-easy-setup
+# Setup opensshd and seperate onion service
 
 Features:
  - [x] Not leaking your default sshd host keys, reducing the possibility of deanymizing you
@@ -13,10 +13,16 @@ Usage:
 
 ```
 git clone https://github.com/norpol/opensshd-tor-easy-setup
-cd opensshd-tor-easy-setup
-sudo sh setup_tor_ssh.sh
+sudo ./opensshd-tor-easy-setup/setup_tor_ssh.sh install
+```
+
+More:
+```
+setup_tor_ssh.sh help
+setup_tor_ssh.sh uninstall
+setup_tor_ssh.sh purge
 ```
 
 Note:
- - It's recommended using a seperate tor-ssh user for your tor connection.
+ - It's recommended using a seperate tor-ssh user for your tor connection. See `sshd_config`
  - [How to connect to a hidden service](https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/ssh)
