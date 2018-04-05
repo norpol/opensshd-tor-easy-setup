@@ -53,9 +53,11 @@ _install() {
    _log_cmd systemctl restart tor
    _log_cmd systemctl restart ssh-tor
    _log_cmd systemctl enable ssh-tor
-   ssh-keyscan -p 22 -t "ed25519" 127.0.1.7
-   cat /var/lib/tor/ssh_hidden_service/hostname
+   fingerprint="$(ssh-keyscan -p 22 -t "ed25519" 127.0.1.7 2>/dev/null)"
+   onion_addr="$(cat /var/lib/tor/ssh_hidden_service/hostname)"
    echo "Success; Now you can proceed with https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/ssh"
+   echo "You can add this to your known-hosts:"
+   echo "${onion_addr} ${fingerprint#* }"
 }
 
 _uninstall() {
