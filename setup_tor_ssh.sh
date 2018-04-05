@@ -10,7 +10,7 @@ sshd --help 2>&1 | grep -qs OpenSSH || { echo "No OpenSSH detected"; exit 1; }
 create() {
   content="${1}"
   file="${2}"
-  
+
   if ! grep -qs "${content}" "${file}" 2>/dev/null; then
     echo "${file}"
     printf '%s\n' "${content}" | tee -a "${file}"
@@ -18,6 +18,7 @@ create() {
     echo "${content} in ${file} exists"
   fi
 }
+
 log_cmd() {
    echo "$ ${*}"
    eval "${*}"
