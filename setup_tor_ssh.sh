@@ -13,7 +13,7 @@ create() {
   
   if ! grep -qs "${content}" "${file}" 2>/dev/null; then
     echo "${file}"
-    printf '%s' "${content}" | tee -a "${file}"
+    printf '%s\n' "${content}" | tee -a "${file}"
   else
     echo "${content} in ${file} exists"
   fi
