@@ -1,17 +1,17 @@
-# via. https://github.com/koalaman/shellcheck/wiki/TravisCI
-sudo: required
-
 language: bash
 
-services:
-   - docker
+# Use container-based infrastructure for quicker build start-up
+sudo: false
 
-before_install:
-   - docker pull koalaman/shellcheck
+addons:
+  apt:
+    sources:
+    - debian-sid
+    packages:
+    - shellcheck
 
 script:
-  - docker run -v $(pwd):/scripts /usr/bin/ls
-  - docker run -v $(pwd):/scripts koalaman/shellcheck *.sh
+ - bash -c 'shopt -s globstar; shellcheck **/*.sh'
 
 matrix:
-   fast_finish: true
+  fast_finish: true
