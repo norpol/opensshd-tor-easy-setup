@@ -1,0 +1,16 @@
+# via. https://github.com/koalaman/shellcheck/wiki/TravisCI
+sudo: required
+
+language: bash
+
+services:
+   - docker
+
+before_install:
+   - docker pull koalaman/shellcheck
+
+script:
+  - docker run -v $(pwd):/scripts koalaman/shellcheck /setup_tor_ssh.sh
+
+matrix:
+   fast_finish: true
