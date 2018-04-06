@@ -64,6 +64,7 @@ _uninstall() {
    systemctl stop ssh-tor 2>/dev/null || true
    systemctl disable ssh-tor 2>/dev/null || true
    rm -fv /etc/systemd/system/ssh-tor.service
+   systemctl daemon-reload
    rm -fv /etc/ssh_tor/sshd_config
    sed -i "/HiddenServiceDir \\/var\\/lib\\/tor\\/ssh_hidden_service/d" /etc/tor/torrc
    sed -i "/HiddenServicePort 22 127.0.1.7:22/d" /etc/tor/torrc
