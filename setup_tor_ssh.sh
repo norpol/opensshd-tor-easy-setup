@@ -7,10 +7,28 @@ set -ue
 SCRIPT_NAME="${0}"
 SCRIPT_DIR="${SCRIPT_NAME%/*}"
 
+_stderr() {
+   echo "${*}" 2>&1
+}
+
+_log_cmd() {
+   _stderr "$ ${*}"
+   eval "${*}"
+}
+
+_err() {
+   _stderr "Error: $*"
+}
+
+_err_exit() {
+   _err "$*"
+   exit 1
+}
+
 _check_deps() {
-   grep -qs '^systemd$' /proc/1/comm || { echo "no systemd detected"; exit 1; }
-   tor -h >/dev/null || { echo "no tor detected"; exit 1; }
-   sshd --help 2>&1 | grep -qs OpenSSH || { echo "No OpenSSH detected"; exit 1; }
+   grep -qs '^systemd$' /proc/1/comm || _err_exit "Couldn't detect systemd"
+   tor -h >/dev/null || _err_exit "Couldnt' detect tor"
+   sshd --help 2>&1 | grep -qs OpenSSH || _err_exit "Couldn't detect OpenSSH daemon"
 }
 
 _mktee() {
@@ -23,11 +41,6 @@ _mktee() {
   else
     echo "${content} in ${file} exists"
   fi
-}
-
-_log_cmd() {
-   echo "$ ${*}"
-   eval "${*}"
 }
 
 _mkcp() {
@@ -57,12 +70,13 @@ _install() {
    # TODO Fix Workaround for
    # https://github.com/norpol/opensshd-tor-easy-setup/issues/4
    while ! [ -f /var/lib/tor/ssh_hidden_service/hostname ]; do
-      echo "Waiting for hostname being generated"
+      _stderr "Waiting for hostname being generated"
       sleep 1s
    done
    onion_addr="$(cat /var/lib/tor/ssh_hidden_service/hostname)"
-   echo "Success; Now you can proceed with https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/ssh"
-   echo "You can add this to your known-hosts:"
+   # logging into _stderr in order to make output easier parsable
+   _stderr "Success; Now you can proceed with https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/ssh"
+   _stderr "You can add this to your known-hosts:"
    echo "${onion_addr} ${fingerprint#* }"
 }
 
@@ -95,5 +109,5 @@ _main() {
    esac
 }
 
-# set EVAL=true to source
+# Set environment variable to EVAL=1 in case you want to source seperate functions
 [ "${EVAL:-0}" = "1" ] || _main "${1:-}"
