@@ -39,7 +39,7 @@ _mktee() {
     printf '%s' "Append to ${file}: "
     printf '%s\n' "${content}" | tee -a "${file}"
   else
-    echo "${content} in ${file} exists"
+    _stderr "${content} in ${file} exists"
   fi
 }
 
