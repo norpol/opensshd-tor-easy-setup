@@ -54,6 +54,12 @@ _install() {
    _log_cmd systemctl restart ssh-tor
    _log_cmd systemctl enable ssh-tor
    fingerprint="$(ssh-keyscan -p 22 -t "ed25519" 127.0.1.7 2>/dev/null)"
+   # TODO Fix Workaround for
+   # https://github.com/norpol/opensshd-tor-easy-setup/issues/4
+   while ! [ -f /var/lib/tor/ssh_hidden_service/hostname ]; do
+      echo "Waiting for hostname being generated"
+      sleep 1s
+   done
    onion_addr="$(cat /var/lib/tor/ssh_hidden_service/hostname)"
    echo "Success; Now you can proceed with https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/ssh"
    echo "You can add this to your known-hosts:"
