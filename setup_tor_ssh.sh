@@ -68,6 +68,7 @@ _install() {
    _log_cmd systemctl restart tor
    _log_cmd systemctl restart ssh-tor
    _log_cmd systemctl enable ssh-tor
+   _log_cmd systemctl is-active ssh-tor
    fingerprint="$(ssh-keyscan -p 22 -t "ed25519" 127.0.1.7 2>/dev/null)"
    # TODO Fix Workaround for
    # https://github.com/norpol/opensshd-tor-easy-setup/issues/4
