@@ -29,7 +29,7 @@ _check_deps() {
    grep -qs '^systemd$' /proc/1/comm || _err_exit "Couldn't detect systemd"
    tor -h >/dev/null || _err_exit "Couldnt' detect tor"
    sshd --help 2>&1 | grep -qs OpenSSH || _err_exit "Couldn't detect OpenSSH daemon"
-   which which 2>&1 >/dev/null || _err_exit "Couldn't detect which"
+   which which >/dev/null 2>&1 || _err_exit "Couldn't detect which"
 }
 
 _mktee() {
