@@ -29,6 +29,7 @@ _check_deps() {
    grep -qs '^systemd$' /proc/1/comm || _err_exit "Couldn't detect systemd"
    tor -h >/dev/null || _err_exit "Couldnt' detect tor"
    sshd --help 2>&1 | grep -qs OpenSSH || _err_exit "Couldn't detect OpenSSH daemon"
+   which which 2>&1 >/dev/null || _err_exit "Couldn't detect which"
 }
 
 _mktee() {
@@ -55,7 +56,8 @@ _install() {
    _check_deps
    _mktee /etc/tor/torrc "HiddenServiceDir /var/lib/tor/ssh_hidden_service"
    _mktee /etc/tor/torrc "HiddenServicePort 22 127.0.1.7:22"
-   _mkcp ssh-tor.service "/etc/systemd/system/"
+   sed "s%SSHD_PATH%$(which sshd)%g" ssh-tor.service > \
+	   "/etc/systemd/system/ssh-tor.service"
    _mkcp sshd_config "/etc/ssh_tor/"
 
    # Note: I'm not sure if you are supposed generating keys like this,

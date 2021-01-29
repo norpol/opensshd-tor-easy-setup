@@ -1,5 +1,5 @@
 [Service]
-ExecStart=/usr/bin/sshd -D -f /etc/ssh_tor/sshd_config
+ExecStart=SSHD_PATH -D -f /etc/ssh_tor/sshd_config
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=always
